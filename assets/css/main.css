@@ -63,14 +63,15 @@ h1, h2 {
 /* Hero Section */
 .hero {
     color: white;
-    height: 55vh;
+    height: 65vh; /* Increased height to show more of the image */
     background-size: cover;
-    background-position: center center;
+    background-position: center; /* Center the image */
     display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: center;
+    justify-content: flex-start; /* Align content to the left */
+    text-align: left;
     position: relative;
+    overflow: hidden; /* Hide overflow during animation */
 }
 
 .hero::after {
@@ -80,19 +81,18 @@ h1, h2 {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(45deg, rgba(0, 86, 179, 0.7), rgba(0, 123, 255, 0.5));
+    background: linear-gradient(90deg, rgba(0, 86, 179, 0.7), rgba(0, 123, 255, 0.5)); /* Adjusted gradient direction */
 }
 
 .hero-content {
-    position: absolute;
+    position: relative;
     z-index: 1;
     max-width: 800px;
     padding: 20px;
     text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-    right: 10%; /* Adjust as needed */
-    text-align: right;
-    transform: translateX(100%); /* Start off-screen to the right */
-    animation: slideInFromRight 1s forwards ease-out; /* Animation */
+    left: 10%; /* Adjust as needed */
+    transform: translateX(-100%); /* Start off-screen to the left */
+    animation: slideInFromLeft 1s forwards ease-out; /* Animation */
 }
 
 .hero h1 {
@@ -105,9 +105,9 @@ h1, h2 {
     font-weight: 500;
 }
 
-@keyframes slideInFromRight {
+@keyframes slideInFromLeft {
     from {
-        transform: translateX(100%);
+        transform: translateX(-100%);
         opacity: 0;
     }
     to {
