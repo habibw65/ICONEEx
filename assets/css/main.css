@@ -1006,11 +1006,110 @@ input[type="reset"] {
     font-weight: 600;
 }
 
-.twitter-feed-container {
+.social-links-container {
     background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.social-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin: 30px 0;
+}
+
+.social-card {
+    background: #f8f9fa;
     padding: 25px;
     border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.social-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: var(--primary-blue-light);
+    background: white;
+}
+
+.social-icon {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+    filter: grayscale(0.3);
+    transition: filter 0.3s ease;
+}
+
+.social-card:hover .social-icon {
+    filter: grayscale(0);
+}
+
+.social-card h4 {
+    color: var(--primary-blue);
+    font-size: 1.3em;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.social-card p {
+    color: #666;
+    font-size: 0.95em;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.social-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-light));
+    color: white;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: 500;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.social-btn:hover {
+    background: linear-gradient(135deg, var(--primary-blue-dark), var(--primary-blue));
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+}
+
+.follow-message {
+    margin-top: 30px;
+    padding: 20px;
+    background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+    border-radius: 12px;
+    border-left: 4px solid var(--primary-blue);
+    text-align: center;
+}
+
+.follow-message p {
+    margin: 0;
+    color: #333;
+    font-size: 1em;
+    line-height: 1.6;
+}
+
+.follow-message a {
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.follow-message a:hover {
+    border-bottom-color: var(--primary-blue);
+    color: var(--primary-blue-dark);
 }
 
 /* Remove old intro-grid styles and update */
