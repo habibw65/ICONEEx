@@ -168,30 +168,22 @@ main.container {
     color: #0056b3;
 }
 
-/* Intro Columns */
-.intro-columns {
-    display: flex;
-    justify-content: space-between;
-    gap: 40px;
-    align-items: flex-start; /* Align items to the top */
+/* Intro Section (Single Column with Sidebar) */
+.intro-main-content {
+    flex: 2;
 }
 
-.intro-text-column {
-    flex: 2;
-    column-count: 2;
-    column-gap: 30px;
-    text-align: justify; /* Justify text for newspaper look */
-    padding-top: 0; /* Ensure no extra padding pushing it down */
+.intro-sidebar {
+    flex: 1;
+    margin-left: 40px; /* Space between main content and sidebar */
 }
 
 .intro-news-preview {
-    flex: 1;
     background-color: #f8f9fa;
     padding: 20px;
     border-radius: 8px;
     box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
-    position: sticky; /* Make it sticky */
-    top: 100px; /* Adjust based on header height */
+    margin-bottom: 30px; /* Space below news preview */
 }
 
 .news-list-preview {
@@ -202,6 +194,16 @@ main.container {
 
 .news-list-preview li {
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.news-preview-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 10px;
 }
 
 .news-list-preview a {
@@ -224,6 +226,14 @@ main.container {
 
 .read-more:hover {
     text-decoration: underline;
+}
+
+.twitter-feed-placeholder {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+    text-align: center;
 }
 
 /* Work Section */
@@ -285,35 +295,6 @@ main.container {
     font-size: 0.85em;
     color: #6c757d;
     margin-bottom: 10px;
-}
-
-/* Funded By Section */
-.funded-by-section {
-    background-color: #e9ecef;
-    text-align: center;
-    padding: 20px 20px; /* Reduced padding */
-    margin-bottom: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-}
-
-.funded-by-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px; /* Reduced gap */
-}
-
-.funded-by-logo {
-    height: 70px; /* Slightly smaller logo */
-    background-color: white;
-    padding: 8px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.funded-by-section p {
-    display: none; /* Hide the text here */
 }
 
 /* Footer */
