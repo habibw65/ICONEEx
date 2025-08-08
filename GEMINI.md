@@ -37,6 +37,9 @@
     - Added dates to news items in `news.html`.
     - Added a new news item for "Poster Presentation at EGU 2024" (April 2024) with `news/EGU-2024.jpg`.
     - Updated "ICONEEx Project Kicks Off!" news item title and date.
+    - **Removed news items:** "Upcoming Workshop on GHG Monitoring", "New Publication on Satellite-based NEE Modeling", "First Data Collection Phase Completed" from `news.html` and `index.html` preview.
+    - Added "Data Sharing Agreement with Teagasc Finalised" (April 2025) to `news.html` and `index.html` preview.
+    - Changed "organised" to "organised" in DSA news.
     - Increased size of news item images on `news.html` to `350px` x `350px` with `object-fit: contain` and adjusted gap for better display.
 - **Team Section:**
     - Populated `team.html` with details and images for Dr. John Connolly, Dr. Wahaj Habib, Dr. Marco Girardello, and Catriona Leahy.
