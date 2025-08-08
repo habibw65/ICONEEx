@@ -170,9 +170,23 @@
             <div class="social-content">
                 <div class="twitter-feed-container">
                     <h3 class="social-title">@ICONEEx_IRL</h3>
-                    <!-- Elfsight Twitter Feed | Untitled Twitter Feed -->
-                    <script src="https://static.elfsight.com/platform/platform.js" async></script>
-                    <div class="elfsight-app-4d441ad5-3b6a-4c88-bf84-8d7a52da26c4" data-elfsight-app-lazy></div>
+                    <!-- X/Twitter Embed Widget -->
+                    <div style="max-width: 100%; margin: 0 auto;">
+                        <blockquote class="twitter-tweet" data-width="100%" data-theme="light">
+                            <p lang="en" dir="ltr">Follow us for updates on the ICONEEx project!</p>
+                            &mdash; ICONEEx (@ICONEEx_IRL) 
+                            <a href="https://twitter.com/ICONEEx_IRL">Visit our X/Twitter page</a>
+                        </blockquote>
+                    </div>
+                    <!-- Alternative: Direct link to X/Twitter -->
+                    <div style="text-align: center; margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+                        <p style="margin: 0; color: #1da1f2; font-weight: 500;">
+                            <a href="https://x.com/ICONEEx_IRL" target="_blank" style="color: #1da1f2; text-decoration: none; font-size: 18px;">
+                                🐦 Follow @ICONEEx_IRL on X (Twitter)
+                            </a>
+                        </p>
+                        <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">Stay updated with our latest research and news!</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -275,6 +289,26 @@
             // Initialize carousel
             updateCarousel();
         });
+    </script>
+
+    <!-- Official Twitter Widgets JavaScript -->
+    <script>
+        window.twttr = (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0],
+                t = window.twttr || {};
+            if (d.getElementById(id)) return t;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js, fjs);
+
+            t._e = [];
+            t.ready = function(f) {
+                t._e.push(f);
+            };
+
+            return t;
+        }(document, "script", "twitter-wjs"));
     </script>
 
 </body>
