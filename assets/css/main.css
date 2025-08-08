@@ -203,7 +203,7 @@ main.container {
 .news-list-preview li {
     margin-bottom: 10px;
     display: flex;
-    align-items: center;
+    align-items: flex-start; /* Align items to the top */
     flex-wrap: wrap; /* Allow items to wrap */
 }
 
@@ -213,13 +213,20 @@ main.container {
     object-fit: cover;
     border-radius: 4px;
     margin-right: 10px;
+    flex-shrink: 0; /* Prevent image from shrinking */
+}
+
+.news-item-content {
+    flex-grow: 1; /* Allow content to take available space */
+    display: flex;
+    flex-direction: column;
 }
 
 .news-list-preview a {
     text-decoration: none;
     color: #333;
     font-weight: 500;
-    flex-grow: 1; /* Allow link to take available space */
+    line-height: 1.2; /* Adjust line height for better spacing */
 }
 
 .news-list-preview a:hover {
@@ -229,9 +236,8 @@ main.container {
 .news-date-preview {
     font-size: 0.75em;
     color: #6c757d;
-    margin-left: auto; /* Push date to the right */
-    padding-left: 10px; /* Space between link and date */
-    white-space: nowrap; /* Prevent date from wrapping */
+    margin-top: 5px; /* Space below title */
+    display: block; /* Make it a block element to go below title */
 }
 
 .read-more {
