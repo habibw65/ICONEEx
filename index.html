@@ -11,6 +11,26 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<style>
+			.footer-container {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				width: 100%;
+			}
+			.footer-text {
+				flex: 1;
+				padding-right: 20px;
+				font-size: 0.8em;
+				max-width: 70%;
+			}
+			.footer-logo img {
+				height: 60px;
+				background-color: white;
+				padding: 5px;
+				border-radius: 5px;
+			}
+		</style>
 	</head>
 	<body class="is-preload">
 
@@ -345,7 +365,14 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
 				<!-- Footer -->
 					<footer id="footer">
-						<p class="copyright">This project is funded under the EPA Research Programme 2021-2030. The EPA Research Programme is a Government of Ireland initiative funded by the Department of the Environment, Climate and Communications. <img src="epa-logo.svg" alt="EPA Logo" style="height: 50px; vertical-align: middle; margin-left: 15px;" /></p>
+						<div class="footer-container">
+							<div class="footer-text">
+								This project is funded under the EPA Research Programme 2021-2030. The EPA Research Programme is a Government of Ireland initiative funded by the Department of the Environment, Climate and Communications.
+							</div>
+							<div class="footer-logo">
+								<img src="epa-logo.svg" alt="EPA Logo" />
+							</div>
+						</div>
 					</footer>
 
 			</div>
