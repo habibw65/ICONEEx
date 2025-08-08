@@ -146,6 +146,25 @@ main.container {
     border-radius: 8px;
 }
 
+.work-content-wrapper {
+    display: flex;
+    align-items: flex-start;
+}
+
+.work-text {
+    flex: 2;
+    padding-right: 30px;
+}
+
+.work-image {
+    flex: 1;
+}
+
+.work-image img {
+    width: 100%;
+    border-radius: 8px;
+}
+
 /* Footer */
 .site-footer {
     background-color: #2c3e50;
