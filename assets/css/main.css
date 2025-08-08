@@ -170,18 +170,18 @@ main.container {
 
 /* Intro Section (Two Columns) */
 #intro.page-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start; /* Align items to the top */
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Main content takes 2/3, sidebar 1/3 */
     gap: 40px; /* Space between columns */
+    align-items: start; /* Align items to the top */
 }
 
 .intro-main-content {
-    flex: 2; /* Main content takes more space */
+    /* flex: 2; No longer needed with grid */
 }
 
 .intro-sidebar {
-    flex: 1; /* Sidebar takes less space */
+    /* flex: 1; No longer needed with grid */
     display: flex;
     flex-direction: column;
     gap: 30px; /* Space between news and twitter feed */
