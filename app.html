@@ -70,69 +70,6 @@
             gap: 10px;
         }
         
-        /* Animated CO₂ Bubbles Effect */
-        .co2-animation {
-            position: absolute;
-            right: 100px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 80px;
-            height: 60px;
-            pointer-events: none;
-        }
-        
-        .cloud-symbol {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 24px;
-            color: rgba(255, 255, 255, 0.7);
-            animation: cloudPulse 3s ease-in-out infinite;
-        }
-        
-        .co2-bubble {
-            position: absolute;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 12px;
-            font-weight: 600;
-            color: rgba(135, 206, 250, 0.9);
-            pointer-events: none;
-            animation: bubbleFloat 4s ease-out infinite;
-            opacity: 0;
-        }
-        
-        .co2-bubble:nth-child(2) { animation-delay: 0.8s; left: 40%; }
-        .co2-bubble:nth-child(3) { animation-delay: 1.6s; left: 60%; }
-        .co2-bubble:nth-child(4) { animation-delay: 2.4s; left: 45%; }
-        .co2-bubble:nth-child(5) { animation-delay: 3.2s; left: 55%; }
-        
-        @keyframes cloudPulse {
-            0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
-            50% { opacity: 0.9; transform: translateX(-50%) scale(1.05); }
-        }
-        
-        @keyframes bubbleFloat {
-            0% {
-                opacity: 0;
-                transform: translateX(-50%) translateY(0px) scale(0.8);
-            }
-            15% {
-                opacity: 1;
-                transform: translateX(-50%) translateY(-5px) scale(1);
-            }
-            85% {
-                opacity: 1;
-                transform: translateX(-50%) translateY(-35px) scale(1.1);
-            }
-            100% {
-                opacity: 0;
-                transform: translateX(-50%) translateY(-45px) scale(0.6);
-            }
-        }
-        
         .app-nav a {
             color: rgba(255, 255, 255, 0.9);
             text-decoration: none;
@@ -507,20 +444,6 @@
             .app-nav {
                 display: none;
             }
-            
-            .co2-animation {
-                right: 20px;
-                width: 60px;
-                height: 45px;
-            }
-            
-            .cloud-symbol {
-                font-size: 18px;
-            }
-            
-            .co2-bubble {
-                font-size: 10px;
-            }
         }
     </style>
 </head>
@@ -533,17 +456,6 @@
                     <img src="iconeex_logo.png" alt="ICONEEx Logo" class="app-logo">
                     <h1>ICONEEx Data Dashboard</h1>
                 </div>
-                
-                <!-- Animated CO₂ Bubbles Effect -->
-                <div class="co2-animation">
-                    <div class="cloud-symbol">☁️</div>
-                    <div class="co2-bubble">CO₂</div>
-                    <div class="co2-bubble">CO₂</div>
-                    <div class="co2-bubble">CO₂</div>
-                    <div class="co2-bubble">CO₂</div>
-                    <div class="co2-bubble">CO₂</div>
-                </div>
-                
                 <nav class="app-nav">
                     <a href="index.html"><i class="fas fa-home"></i> Home</a>
                     <a href="news.html"><i class="fas fa-newspaper"></i> News</a>
