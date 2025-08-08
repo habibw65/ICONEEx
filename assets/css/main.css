@@ -168,14 +168,23 @@ main.container {
     color: #0056b3;
 }
 
-/* Intro Section (Single Column with Sidebar) */
+/* Intro Section (Two Columns) */
+#intro.page-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Align items to the top */
+    gap: 40px; /* Space between columns */
+}
+
 .intro-main-content {
-    flex: 2;
+    flex: 2; /* Main content takes more space */
 }
 
 .intro-sidebar {
-    flex: 1;
-    margin-left: 40px; /* Space between main content and sidebar */
+    flex: 1; /* Sidebar takes less space */
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Space between news and twitter feed */
 }
 
 .intro-news-preview {
@@ -183,7 +192,6 @@ main.container {
     padding: 20px;
     border-radius: 8px;
     box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
-    margin-bottom: 30px; /* Space below news preview */
 }
 
 .news-list-preview {
