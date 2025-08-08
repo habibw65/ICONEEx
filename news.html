@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ICONEEx Project - News</title>
     <link rel="stylesheet" href="assets/css/main.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
     <div class="top-bar">
         <div class="container">
             <a href="https://x.com/ICONEEx_IRL" target="_blank" class="twitter-link">
-                <i class="fab fa-twitter"></i>
+                <i class="fab fa-x-twitter"></i>
             </a>
         </div>
     </div>
@@ -40,15 +40,48 @@
         <article id="news" class="page-section">
             <h2 class="section-title">News</h2>
             <div class="section-content">
-                <div class="news-item">
+                <div class="news-item" id="esa-lps-2025">
+                    <a href="news/wahaj-esa-lps.jpeg" class="news-image-link">
+                        <img src="news/wahaj-esa-lps.jpeg" alt="Dr. Wahaj Habib at ESA Living Planet Symposium" class="news-item-img">
+                    </a>
+                    <div>
+                        <h3>ICONEEx Research Presented at ESA Living Planet Symposium 2025</h3>
+                        <p class="news-date">May 2025</p>
+                        <p>Dr. Wahaj Habib presented a poster at the ESA Living Planet Symposium 2025, showcasing research work from the ICONEEx project. The Living Planet Symposium is ESA's flagship Earth observation conference, bringing together scientists, researchers, and industry professionals from around the world to discuss the latest advances in Earth observation science and applications.</p>
+                        <p>The presentation highlighted the innovative approaches being developed in the ICONEEx project for upscaling Irish CO₂ Net Ecosystem Exchange using satellite-driven models, demonstrating how high-resolution remote sensing data can be integrated with ground-based measurements to monitor carbon dynamics across Ireland's diverse ecosystems.</p>
+                        <div class="abstract-link">
+                            <h4>ESA Living Planet Symposium 2025:</h4>
+                            <p>Learn more about the symposium: <a href="https://lps25.esa.int/" target="_blank">ESA Living Planet Symposium 2025</a></p>
+                            <p>The symposium focuses on Earth observation science, applications, and the role of satellite data in understanding our changing planet.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="news-item" id="teagasc-dsa">
                     <div>
                         <h3>Data Sharing Agreement with Teagasc Finalised</h3>
                         <p class="news-date">April 2025</p>
                         <p>We are happy to announce that we have finalised the signing of a Data Sharing Agreement (DSA) with Teagasc to acquire eddy covariance flux tower data. This collaboration is crucial for the ICONEEx project, enabling us to integrate high-quality, long-term data from the National Agricultural Soil Carbon Observatory (NASCO) into our models. NASCO, funded by the Department of Agriculture, Food and the Marine (DAFM), is establishing 28 Eddy Covariance Flux Towers across various agricultural landscapes in Ireland. This initiative will provide vital information on carbon dynamics, improve carbon sequestration assessment, and contribute to national inventory reporting. Learn more about NASCO <a href="https://teagasc.ie/environment/climate-change-air-quality/soil-carbon/national-agricultural-soil-carbon-observatory/" target="_blank">here</a>.</p>
                     </div>
                 </div>
-                <div class="news-item">
-                    <img src="news/EGU-2024.jpg" alt="EGU 2024 Poster Presentation" class="news-item-img">
+                <div class="news-item" id="arctic-frontiers">
+                    <a href="news/wahaj_arctic_frontiers.jpg" class="news-image-link">
+                        <img src="news/wahaj_arctic_frontiers.jpg" alt="Dr. Wahaj Habib at Arctic Frontiers" class="news-item-img">
+                    </a>
+                    <div>
+                        <h3>Dr. Wahaj Habib Named Ireland's Arctic Frontiers Emerging Leader for 2025</h3>
+                        <p class="news-date">January 2025</p>
+                        <p>Dr. Wahaj Habib was named Ireland's Arctic Frontiers Emerging Leader for 2025. As one of the selected participants for this program (out of about 200 applicants globally and 10 applicants in Ireland) funded by the Embassy of Ireland in Norway and the Marine Institute, Wahaj was invited to small group meeting in January to travel through Northern Norway.</p>
+                        <div class="abstract-link">
+                            <h4>Arctic Frontiers Resources:</h4>
+                            <p>Read about his experience: <a href="https://www.ireland.ie/en/norway/oslo/news-and-events/news-archive/arctic-frontiers-emerging-leaders-programme-2025/" target="_blank">Ireland's Arctic Frontiers Emerging Leader Report 2025</a></p>
+                            <p>For more information visit: <a href="https://www.arcticfrontiers.com/emerging-leaders" target="_blank">Arctic Frontiers Emerging Leaders Programme</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="news-item" id="egu-2024">
+                    <a href="news/EGU-2024.jpg" class="news-image-link">
+                        <img src="news/EGU-2024.jpg" alt="EGU 2024 Poster Presentation" class="news-item-img">
+                    </a>
                     <div>
                         <h3>Poster Presentation at EGU 2024</h3>
                         <p class="news-date">April 2024</p>
@@ -59,7 +92,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="news-item">
+                <div class="news-item" id="project-kickoff">
                     <div>
                         <h3>ICONEEx Project Kicks Off!</h3>
                         <p class="news-date">April 2023</p>
@@ -83,6 +116,38 @@
             </div>
         </div>
     </footer>
+
+    <!-- Lightbox Structure -->
+    <div id="lightbox" class="lightbox">
+        <span class="close-button">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const closeButton = document.querySelector('.close-button');
+
+            document.querySelectorAll('.news-image-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    lightbox.style.display = 'block';
+                    lightboxImg.src = this.href;
+                });
+            });
+
+            closeButton.addEventListener('click', function() {
+                lightbox.style.display = 'none';
+            });
+
+            lightbox.addEventListener('click', function(e) {
+                if (e.target === lightbox) {
+                    lightbox.style.display = 'none';
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>

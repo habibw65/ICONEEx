@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ICONEEx Project</title>
     <link rel="stylesheet" href="assets/css/main.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
     <div class="top-bar">
         <div class="container">
             <a href="https://x.com/ICONEEx_IRL" target="_blank" class="twitter-link">
-                <i class="fab fa-twitter"></i>
+                <i class="fab fa-x-twitter"></i>
             </a>
         </div>
     </div>
@@ -44,47 +44,138 @@
     </section>
 
     <main class="container">
-        <article id="intro" class="page-section intro-grid">
-            <div class="intro-main-content">
+        <!-- Project Overview Section -->
+        <section id="intro" class="page-section">
+            <h2 class="section-title">About ICONEEx</h2>
+            <div class="section-content">
                 <p>Climate change poses a significant environmental challenge for humanity, and accurately predicting its intensity as well as its impact on terrestrial ecosystems is crucial. To achieve this, monitoring, modelling, and mapping greenhouse gas (GHG) exchanges between the biosphere and the atmosphere is essential. Monitoring is also important to achieve the European Union's goal to achieve a balance between GHG emissions and removals by 2050 and maintain negative emissions thereafter. While in situ measurement techniques, such as the eddy covariance flux tower (ECFT), have been used for decades to measure ecosystem-level exchanges of carbon, such as Net Ecosystem Exchange (NEE) of CO<sub>2</sub>, their footprint is limited to only 1 km<sup>2</sup>.</p>
                 <p>To overcome this limitation, satellite remote sensing data has been used to upscale these measurements to regional and global scales, but previous work has relied on low-resolution remote sensing data, such as the Moderate Resolution Imaging Spectroradiometer (MODIS) sensor (at 250m or 500m spatial resolution). This study aims to use a combination of high-resolution remote sensing data and measurements from in situ ECFT data to model the NEE of CO<sub>2</sub> across ~92% of Ireland's terrestrial area, covering major land covers such as wetlands (coastal and peatlands), grassland, and forestry. The model will integrate datasets from both ESA (Copernicus Sentinel-1 and 2) and NASA (MODIS PAR) with the light response curve parameters derived from the ECFT data in Ireland, to model NEE CO<sub>2</sub> at a national scale. The results will be useful for monitoring, reporting, and verifying NEE across a range of ecosystems in Ireland. They can also be used to enhance National Inventory Reporting and national ambitions on climate, influence targeted policymaking, and verify land management decisions.</p>
             </div>
-            <div class="intro-sidebar">
-                <div class="intro-news-preview">
-                    <h3 class="section-title-small">Latest News</h3>
-                    <ul class="news-list-preview">
-                        <li>
-                            <div class="news-item-content">
-                                <a href="news.html">Data Sharing Agreement with Teagasc Finalised</a>
-                                <span class="news-date-preview">April 2025</span>
-                                <p class="news-excerpt">We are happy to announce that we have finalised the signing of a Data Sharing Agreement (DSA) with Teagasc...</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="news-item-content">
-                                <a href="news.html">Poster Presentation at EGU 2024</a>
-                                <span class="news-date-preview">April 2024</span>
-                                <p class="news-excerpt">Dr. John Connolly and Dr. Wahaj Habib presented a poster on the ICONEEx project...</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="news-item-content">
-                                <a href="news.html">ICONEEx Project Kicks Off!</a>
-                                <span class="news-date-preview">April 2023</span>
-                                <p class="news-excerpt">We are excited to announce the official launch of the ICONEEx project...</p>
-                            </div>
-                        </li>
-                    </ul>
-                    <a href="news.html" class="read-more">More...</a>
+        </section>
+
+        <!-- Latest News Section -->
+        <section id="latest-news" class="page-section">
+            <h2 class="section-title">Latest News</h2>
+            <div class="news-carousel-container">
+                <div class="news-carousel">
+                    <div class="news-slides" id="newsSlides">
+                        <!-- Slide 1: ESA Living Planet Symposium -->
+                        <div class="news-slide">
+                            <article class="news-card">
+                                <div class="news-card-image">
+                                    <a href="news.html#esa-lps-2025">
+                                        <img src="news/wahaj-esa-lps.jpeg" alt="Dr. Wahaj Habib at ESA Living Planet Symposium">
+                                    </a>
+                                </div>
+                                <div class="news-card-content">
+                                    <div class="news-card-header">
+                                        <h3><a href="news.html#esa-lps-2025">ICONEEx Research Presented at ESA Living Planet Symposium 2025</a></h3>
+                                        <span class="news-card-date">May 2025</span>
+                                    </div>
+                                    <p class="news-card-excerpt">Dr. Wahaj Habib presented a poster at the ESA Living Planet Symposium 2025, showcasing research work from the ICONEEx project. The Living Planet Symposium is ESA's flagship Earth observation conference, bringing together scientists and researchers from around the world to discuss the latest advances in Earth observation science and applications.</p>
+                                    <a href="news.html#esa-lps-2025" class="news-card-link">Read more</a>
+                                </div>
+                            </article>
+                        </div>
+
+                        <!-- Slide 2: Teagasc DSA -->
+                        <div class="news-slide">
+                            <article class="news-card text-only">
+                                <div class="news-card-content">
+                                    <div class="news-card-header">
+                                        <h3><a href="news.html#teagasc-dsa">Data Sharing Agreement with Teagasc Finalised</a></h3>
+                                        <span class="news-card-date">April 2025</span>
+                                    </div>
+                                    <p class="news-card-excerpt">We are happy to announce that we have finalised the signing of a Data Sharing Agreement (DSA) with Teagasc to acquire eddy covariance flux tower data. This collaboration is crucial for the ICONEEx project, enabling us to integrate high-quality, long-term data from the National Agricultural Soil Carbon Observatory (NASCO) into our models. NASCO will establish 28 Eddy Covariance Flux Towers across various agricultural landscapes in Ireland, providing vital information on carbon dynamics and contributing to national inventory reporting.</p>
+                                    <a href="news.html#teagasc-dsa" class="news-card-link">Read more</a>
+                                </div>
+                            </article>
+                        </div>
+
+                        <!-- Slide 3: Arctic Frontiers -->
+                        <div class="news-slide">
+                            <article class="news-card">
+                                <div class="news-card-image">
+                                    <a href="news.html#arctic-frontiers">
+                                        <img src="news/wahaj_arctic_frontiers.jpg" alt="Dr. Wahaj Habib at Arctic Frontiers">
+                                    </a>
+                                </div>
+                                <div class="news-card-content">
+                                    <div class="news-card-header">
+                                        <h3><a href="news.html#arctic-frontiers">Dr. Wahaj Habib Named Ireland's Arctic Frontiers Emerging Leader for 2025</a></h3>
+                                        <span class="news-card-date">January 2025</span>
+                                    </div>
+                                    <p class="news-card-excerpt">Dr. Wahaj Habib was named Ireland's Arctic Frontiers Emerging Leader for 2025. As one of the selected participants for this program (out of about 200 applicants globally and 10 applicants in Ireland) funded by the Embassy of Ireland in Norway and the Marine Institute, Wahaj was invited to travel through Northern Norway in January. This prestigious recognition highlights the international impact and excellence of the ICONEEx project team.</p>
+                                    <a href="news.html#arctic-frontiers" class="news-card-link">Read more</a>
+                                </div>
+                            </article>
+                        </div>
+
+                        <!-- Slide 4: EGU 2024 -->
+                        <div class="news-slide">
+                            <article class="news-card">
+                                <div class="news-card-image">
+                                    <a href="news.html#egu-2024">
+                                        <img src="news/EGU-2024.jpg" alt="EGU 2024 Poster Presentation">
+                                    </a>
+                                </div>
+                                <div class="news-card-content">
+                                    <div class="news-card-header">
+                                        <h3><a href="news.html#egu-2024">Poster Presentation at EGU 2024</a></h3>
+                                        <span class="news-card-date">April 2024</span>
+                                    </div>
+                                    <p class="news-card-excerpt">Dr. John Connolly and Dr. Wahaj Habib participated in the European Geosciences Union (EGU) General Assembly 2024 in April, where they presented a poster on the ICONEEx project, detailing what will be achieved in the project over the coming years.</p>
+                                    <a href="news.html#egu-2024" class="news-card-link">Read more</a>
+                                </div>
+                            </article>
+                        </div>
+
+                        <!-- Slide 3: Project Kickoff -->
+                        <div class="news-slide">
+                            <article class="news-card text-only">
+                                <div class="news-card-content">
+                                    <div class="news-card-header">
+                                        <h3><a href="news.html#project-kickoff">ICONEEx Project Kicks Off!</a></h3>
+                                        <span class="news-card-date">April 2023</span>
+                                    </div>
+                                    <p class="news-card-excerpt">We are excited to announce the official launch of the ICONEEx project. This groundbreaking initiative will use satellite-driven models to upscale Irish CO₂ Net Ecosystem Exchange, contributing to climate monitoring and national environmental reporting. The project aims to model NEE across ~92% of Ireland's terrestrial area, covering major land covers such as wetlands, grassland, and forestry.</p>
+                                    <a href="news.html#project-kickoff" class="news-card-link">Read more</a>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
                 </div>
-                <div class="twitter-feed-placeholder">
-                    <h3 class="section-title-small">@ICONEEx_IRL</h3>
+                
+                <div class="carousel-nav">
+                    <button class="carousel-btn" id="prevBtn">‹</button>
+                    <div class="carousel-indicators">
+                        <button class="indicator active" data-slide="0"></button>
+                        <button class="indicator" data-slide="1"></button>
+                        <button class="indicator" data-slide="2"></button>
+                        <button class="indicator" data-slide="3"></button>
+                        <button class="indicator" data-slide="4"></button>
+                    </div>
+                    <button class="carousel-btn" id="nextBtn">›</button>
+                </div>
+            </div>
+            
+            <div class="news-section-footer">
+                <a href="news.html" class="view-all-news">View All News</a>
+            </div>
+        </section>
+
+        <!-- Social Media Section -->
+        <section id="social-media" class="page-section">
+            <h2 class="section-title">Follow Us</h2>
+            <div class="social-content">
+                <div class="twitter-feed-container">
+                    <h3 class="social-title">@ICONEEx_IRL</h3>
                     <!-- Elfsight Twitter Feed | Untitled Twitter Feed -->
                     <script src="https://static.elfsight.com/platform/platform.js" async></script>
                     <div class="elfsight-app-4d441ad5-3b6a-4c88-bf84-8d7a52da26c4" data-elfsight-app-lazy></div>
                 </div>
             </div>
-        </article>
+        </section>
     </main>
 
     <footer class="site-footer">
@@ -100,6 +191,91 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // News Carousel Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            let currentSlide = 0;
+            const slides = document.querySelectorAll('.news-slide');
+            const totalSlides = slides.length;
+            const slidesContainer = document.getElementById('newsSlides');
+            const indicators = document.querySelectorAll('.indicator');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            function updateCarousel() {
+                // Update slide position
+                slidesContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+                
+                // Update indicators
+                indicators.forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index === currentSlide);
+                });
+                
+                // Update button states
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.disabled = currentSlide === totalSlides - 1;
+            }
+
+            function nextSlide() {
+                if (currentSlide < totalSlides - 1) {
+                    currentSlide++;
+                    updateCarousel();
+                }
+            }
+
+            function prevSlide() {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    updateCarousel();
+                }
+            }
+
+            function goToSlide(slideIndex) {
+                currentSlide = slideIndex;
+                updateCarousel();
+            }
+
+            // Event listeners
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+            
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => goToSlide(index));
+            });
+
+            // Auto-play functionality (optional)
+            let autoPlayInterval;
+            
+            function startAutoPlay() {
+                autoPlayInterval = setInterval(() => {
+                    if (currentSlide === totalSlides - 1) {
+                        currentSlide = 0;
+                    } else {
+                        currentSlide++;
+                    }
+                    updateCarousel();
+                }, 5000); // Change slide every 5 seconds
+            }
+
+            function stopAutoPlay() {
+                if (autoPlayInterval) {
+                    clearInterval(autoPlayInterval);
+                }
+            }
+
+            // Start autoplay
+            startAutoPlay();
+
+            // Pause autoplay on hover
+            const carousel = document.querySelector('.news-carousel-container');
+            carousel.addEventListener('mouseenter', stopAutoPlay);
+            carousel.addEventListener('mouseleave', startAutoPlay);
+
+            // Initialize carousel
+            updateCarousel();
+        });
+    </script>
 
 </body>
 </html>
