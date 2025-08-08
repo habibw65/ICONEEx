@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICONEEx Data Dashboard - GIS App</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    
+    <!-- Additional Leaflet Plugins -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-draw@1.0.4/dist/leaflet.draw.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@2.4.0/Control.FullScreen.css"/>
+    
+    <style>
+        /* App-specific styles */
+        .app-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .app-header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: white;
+            padding: 16px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+        }
+        
+        .app-header .container {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            max-width: none;
+            padding: 0 24px;
+        }
+        
+        .app-title {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-right: auto;
+        }
+        
+        .app-title h1 {
+            font-size: 1.75rem;
+            margin: 0;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.025em;
+        }
+        
+        .app-logo {
+            height: 48px;
+            width: auto;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+        
+        .app-nav {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .app-nav a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: var(--radius-md);
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+        
+        .app-nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .app-main {
+            flex: 1;
+            display: flex;
+            position: relative;
+        }
+        
+        /* Control Panel */
+        .control-panel {
+            width: 300px;
+            background: var(--bg-primary);
+            border-right: 1px solid var(--border-light);
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-md);
+            z-index: 500;
+        }
+        
+        .control-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-light);
+            background: var(--bg-secondary);
+        }
+        
+        .control-header h3 {
+            margin: 0;
+            color: var(--primary-blue);
+            font-size: 1.1rem;
+        }
+        
+        .control-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0;
+        }
+        
+        .control-section {
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .section-header {
+            padding: 15px 20px;
+            background: var(--bg-accent);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+        
+        .section-header:hover {
+            background: #e8f4fd;
+        }
+        
+        .section-header h4 {
+            margin: 0;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .section-toggle {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            transition: transform 0.2s ease;
+        }
+        
+        .section-content {
+            padding: 15px 20px;
+            display: none;
+        }
+        
+        .section-content.active {
+            display: block;
+        }
+        
+        .layer-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .layer-item:last-child {
+            border-bottom: none;
+        }
+        
+        .layer-info {
+            flex: 1;
+        }
+        
+        .layer-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+        
+        .layer-desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        
+        .layer-controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 40px;
+            height: 20px;
+            background: #ccc;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        
+        .toggle-switch.active {
+            background: var(--primary-blue);
+        }
+        
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.2s ease;
+        }
+        
+        .toggle-switch.active::after {
+            transform: translateX(20px);
+        }
+        
+        .opacity-slider {
+            width: 60px;
+            height: 4px;
+            -webkit-appearance: none;
+            background: #ddd;
+            border-radius: 2px;
+            outline: none;
+        }
+        
+        .opacity-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            background: var(--primary-blue);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        /* Map Container */
+        .map-container {
+            flex: 1;
+            position: relative;
+        }
+        
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Custom Map Controls */
+        .map-tools {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .tool-group {
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: 5px;
+        }
+        
+        .map-tool-btn {
+            background: none;
+            border: none;
+            padding: 10px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-primary);
+            font-size: 16px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .map-tool-btn:hover {
+            background: var(--bg-accent);
+            color: var(--primary-blue);
+        }
+        
+        .map-tool-btn.active {
+            background: var(--primary-blue);
+            color: white;
+        }
+        
+        /* Legend */
+        .map-legend {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            max-width: 250px;
+            z-index: 1000;
+        }
+        
+        .legend-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary-blue);
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            font-size: 0.85rem;
+        }
+        
+        .legend-symbol {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+            border-radius: 50%;
+        }
+        
+        /* Status Bar */
+        .status-bar {
+            background: var(--bg-secondary);
+            padding: 8px 20px;
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            min-height: 35px;
+        }
+        
+        .coordinates {
+            font-family: monospace;
+        }
+        
+        /* Custom Popup Styles */
+        .leaflet-popup-content-wrapper {
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .popup-content {
+            padding: 10px;
+        }
+        
+        .popup-title {
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        
+        .popup-info {
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        
+        .popup-info strong {
+            color: var(--text-primary);
+        }
+        
+        /* Panel Toggle */
+        .panel-toggle {
+            position: absolute;
+            left: 300px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 600;
+            background: white;
+            border: 1px solid var(--border-light);
+            border-left: none;
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            padding: 10px 5px;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+        
+        .panel-toggle:hover {
+            background: var(--bg-accent);
+        }
+        
+        .control-panel.collapsed {
+            margin-left: -300px;
+        }
+        
+        .control-panel.collapsed ~ .panel-toggle {
+            left: 0;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .control-panel {
+                width: 280px;
+                position: absolute;
+                height: 100%;
+                left: -280px;
+                transition: left 0.3s ease;
+                z-index: 1000;
+            }
+            
+            .control-panel.mobile-open {
+                left: 0;
+            }
+            
+            .panel-toggle {
+                left: 10px;
+                top: 80px;
+                transform: none;
+                border-radius: var(--radius-md);
+                border: 1px solid var(--border-light);
+            }
+            
+            .map-tools {
+                right: 10px;
+                top: 80px;
+            }
+            
+            .map-legend {
+                bottom: 70px;
+                left: 10px;
+                right: 10px;
+                max-width: none;
+            }
+            
+            .app-title h1 {
+                font-size: 1.2rem;
+            }
+            
+            .app-nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- App Header -->
+        <header class="app-header">
+            <div class="container">
+                <div class="app-title">
+                    <img src="iconeex_logo.png" alt="ICONEEx Logo" class="app-logo">
+                    <h1>ICONEEx Data Dashboard</h1>
+                </div>
+                <nav class="app-nav">
+                    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                    <a href="news.html"><i class="fas fa-newspaper"></i> News</a>
+                    <a href="team.html"><i class="fas fa-users"></i> Team</a>
+                    <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main App Content -->
+        <main class="app-main">
+            <!-- Control Panel -->
+            <div class="control-panel" id="controlPanel">
+                <div class="control-header">
+                    <h3><i class="fas fa-layer-group"></i> Layer Control</h3>
+                </div>
+                <div class="control-content">
+                    <!-- Base Maps Section -->
+                    <div class="control-section">
+                        <div class="section-header" onclick="toggleSection('basemaps')">
+                            <h4><i class="fas fa-map"></i> Base Maps</h4>
+                            <span class="section-toggle">▼</span>
+                        </div>
+                        <div class="section-content active" id="basemaps">
+                            <div class="layer-item">
+                                <div class="layer-info">
+                                    <div class="layer-name">OpenStreetMap</div>
+                                    <div class="layer-desc">Default street map</div>
+                                </div>
+                                <div class="layer-controls">
+                                    <div class="toggle-switch active" onclick="switchBasemap('osm')" data-basemap="osm"></div>
+                                </div>
+                            </div>
+                            <div class="layer-item">
+                                <div class="layer-info">
+                                    <div class="layer-name">Satellite</div>
+                                    <div class="layer-desc">ESRI World Imagery</div>
+                                </div>
+                                <div class="layer-controls">
+                                    <div class="toggle-switch" onclick="switchBasemap('satellite')" data-basemap="satellite"></div>
+                                </div>
+                            </div>
+                            <div class="layer-item">
+                                <div class="layer-info">
+                                    <div class="layer-name">Terrain</div>
+                                    <div class="layer-desc">Topographic map</div>
+                                </div>
+                                <div class="layer-controls">
+                                    <div class="toggle-switch" onclick="switchBasemap('terrain')" data-basemap="terrain"></div>
+                                </div>
+                            </div>
+                            <div class="layer-item">
+                                <div class="layer-info">
+                                    <div class="layer-name">Dark</div>
+                                    <div class="layer-desc">Dark theme map</div>
+                                </div>
+                                <div class="layer-controls">
+                                    <div class="toggle-switch" onclick="switchBasemap('dark')" data-basemap="dark"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data Layers Section -->
+                    <div class="control-section">
+                        <div class="section-header" onclick="toggleSection('datalayers')">
+                            <h4><i class="fas fa-database"></i> Data Layers</h4>
+                            <span class="section-toggle">▼</span>
+                        </div>
+                        <div class="section-content active" id="datalayers">
+                            <div class="layer-item">
+                                <div class="layer-info">
+                                    <div class="layer-name">Flux Towers</div>
+                                    <div class="layer-desc">CO₂ monitoring locations</div>
+                                </div>
+                                <div class="layer-controls">
+                                    <div class="toggle-switch active" onclick="toggleLayer('flux-towers')" id="toggle-flux-towers"></div>
+                                    <input type="range" class="opacity-slider" min="0" max="100" value="100" onchange="changeOpacity('flux-towers', this.value)">
+                                </div>
+                            </div>
+                            <div class="layer-item">
+                                <div class="layer-info">
+                                    <div class="layer-name">Land Cover</div>
+                                    <div class="layer-desc">Irish land cover data</div>
+                                </div>
+                                <div class="layer-controls">
+                                    <div class="toggle-switch" onclick="toggleLayer('land-cover')" id="toggle-land-cover"></div>
+                                    <input type="range" class="opacity-slider" min="0" max="100" value="100" onchange="changeOpacity('land-cover', this.value)">
+                                </div>
+                            </div>
+                            <div class="layer-item">
+                                <div class="layer-info">
+                                    <div class="layer-name">NEE Estimates</div>
+                                    <div class="layer-desc">Net Ecosystem Exchange</div>
+                                </div>
+                                <div class="layer-controls">
+                                    <div class="toggle-switch" onclick="toggleLayer('nee-data')" id="toggle-nee-data"></div>
+                                    <input type="range" class="opacity-slider" min="0" max="100" value="100" onchange="changeOpacity('nee-data', this.value)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Analysis Tools Section -->
+                    <div class="control-section">
+                        <div class="section-header" onclick="toggleSection('tools')">
+                            <h4><i class="fas fa-tools"></i> Analysis Tools</h4>
+                            <span class="section-toggle">▼</span>
+                        </div>
+                        <div class="section-content" id="tools">
+                            <div class="layer-item">
+                                <div class="layer-info">
+                                    <div class="layer-name">Measurement Tool</div>
+                                    <div class="layer-desc">Measure distances & areas</div>
+                                </div>
+                                <div class="layer-controls">
+                                    <button class="map-tool-btn" onclick="toggleMeasurement()">
+                                        <i class="fas fa-ruler"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="layer-item">
+                                <div class="layer-info">
+                                    <div class="layer-name">Export Data</div>
+                                    <div class="layer-desc">Download current view</div>
+                                </div>
+                                <div class="layer-controls">
+                                    <button class="map-tool-btn" onclick="exportData()">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel Toggle Button -->
+            <div class="panel-toggle" onclick="togglePanel()" id="panelToggle">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+
+            <!-- Map Container -->
+            <div class="map-container">
+                <div id="map"></div>
+                
+                <!-- Custom Map Tools -->
+                <div class="map-tools">
+                    <div class="tool-group">
+                        <button class="map-tool-btn" onclick="zoomToIreland()" title="Zoom to Ireland">
+                            <i class="fas fa-search-location"></i>
+                        </button>
+                        <button class="map-tool-btn" onclick="toggleFullscreen()" title="Fullscreen">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Legend -->
+                <div class="map-legend" id="mapLegend">
+                    <div class="legend-title">Legend</div>
+                    <div class="legend-item">
+                        <div class="legend-symbol" style="background: #2563eb;"></div>
+                        Eddy Covariance Flux Tower
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-left">
+                <span>Zoom Level: <span id="zoomLevel">8</span></span>
+                <span style="margin-left: 20px;">Scale: <span id="mapScale">1:500,000</span></span>
+            </div>
+            <div class="coordinates">
+                Coordinates: <span id="mouseCoords">53.3498, -6.2603</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
+    <!-- Additional Leaflet Plugins -->
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-draw@1.0.4/dist/leaflet.draw.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@2.4.0/Control.FullScreen.min.js"></script>
+
+    <script>
+        // Initialize the map
+        let map = L.map('map').setView([53.2, -7.8], 7);
+        let currentBasemap = 'osm';
+        let layers = {};
+        let measurementMode = false;
+
+        // Base map definitions
+        const basemaps = {
+            osm: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }),
+            satellite: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                attribution: '© Esri, Maxar, Earthstar Geographics'
+            }),
+            terrain: L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenTopoMap contributors'
+            }),
+            dark: L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png', {
+                attribution: '© CartoDB, © OSM contributors'
+            })
+        };
+
+        // Add default basemap
+        basemaps[currentBasemap].addTo(map);
+
+        // Real flux tower coordinates from ICONEEx project
+        const fluxTowerData = [
+            {
+                name: "Gurteen",
+                lat: 53.039,
+                lng: -8.000,
+                type: "Eddy Covariance Flux Tower",
+                measurements: "CO2 and PAR"
+            },
+            {
+                name: "Timoleague",
+                lat: 51.632,
+                lng: -8.799,
+                type: "Eddy Covariance Flux Tower",
+                measurements: "CO2 and PAR"
+            },
+            {
+                name: "JC1",
+                lat: 52.307,
+                lng: -6.457,
+                type: "Eddy Covariance Flux Tower",
+                measurements: "CO2 and PAR"
+            },
+            {
+                name: "JC2",
+                lat: 52.300,
+                lng: -6.555,
+                type: "Eddy Covariance Flux Tower",
+                measurements: "CO2 and PAR"
+            },
+            {
+                name: "Athenry",
+                lat: 53.289,
+                lng: -8.770,
+                type: "Eddy Covariance Flux Tower",
+                measurements: "CO2 and PAR"
+            },
+            {
+                name: "Clarabog",
+                lat: 53.323083,
+                lng: -7.641778,
+                type: "Eddy Covariance Flux Tower",
+                measurements: "CO2 and PAR"
+            },
+            {
+                name: "Lullymore",
+                lat: 53.273139,
+                lng: -6.960583,
+                type: "Eddy Covariance Flux Tower",
+                measurements: "CO2 and PAR"
+            }
+        ];
+
+        // Create flux tower layer
+        const fluxTowerLayer = L.layerGroup();
+        
+        fluxTowerData.forEach(tower => {
+            const marker = L.circleMarker([tower.lat, tower.lng], {
+                radius: 8,
+                fillColor: '#2563eb',
+                color: 'white',
+                weight: 2,
+                opacity: 1,
+                fillOpacity: 0.8
+            });
+            
+            const popupContent = `
+                <div class="popup-content">
+                    <div class="popup-title">${tower.name}</div>
+                    <div class="popup-info">
+                        <strong>Type:</strong> ${tower.type}<br>
+                        <strong>Coordinates:</strong> ${tower.lat.toFixed(4)}, ${tower.lng.toFixed(4)}<br>
+                        <strong>Measurements:</strong> ${tower.measurements}
+                    </div>
+                </div>
+            `;
+            
+            marker.bindPopup(popupContent);
+            fluxTowerLayer.addLayer(marker);
+        });
+
+        // Add flux tower layer to map by default
+        fluxTowerLayer.addTo(map);
+        layers['flux-towers'] = fluxTowerLayer;
+
+        // Map event listeners
+        map.on('zoomend', function() {
+            document.getElementById('zoomLevel').textContent = map.getZoom();
+            updateScale();
+        });
+
+        map.on('mousemove', function(e) {
+            const lat = e.latlng.lat.toFixed(4);
+            const lng = e.latlng.lng.toFixed(4);
+            document.getElementById('mouseCoords').textContent = `${lat}, ${lng}`;
+        });
+
+        // Control panel functions
+        function toggleSection(sectionId) {
+            const content = document.getElementById(sectionId);
+            const toggle = content.previousElementSibling.querySelector('.section-toggle');
+            
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                toggle.textContent = '▶';
+            } else {
+                content.classList.add('active');
+                toggle.textContent = '▼';
+            }
+        }
+
+        function switchBasemap(type) {
+            // Remove current basemap
+            map.removeLayer(basemaps[currentBasemap]);
+            
+            // Update toggle switches
+            document.querySelectorAll('[data-basemap]').forEach(toggle => {
+                toggle.classList.remove('active');
+            });
+            
+            // Add new basemap
+            basemaps[type].addTo(map);
+            currentBasemap = type;
+            
+            // Update active toggle
+            document.querySelector(`[data-basemap="${type}"]`).classList.add('active');
+        }
+
+        function toggleLayer(layerId) {
+            const toggle = document.getElementById(`toggle-${layerId}`);
+            
+            if (layers[layerId] && map.hasLayer(layers[layerId])) {
+                map.removeLayer(layers[layerId]);
+                toggle.classList.remove('active');
+            } else if (layers[layerId]) {
+                layers[layerId].addTo(map);
+                toggle.classList.add('active');
+            } else {
+                // Layer doesn't exist yet - placeholder for future implementation
+                console.log(`Layer ${layerId} not implemented yet`);
+            }
+        }
+
+        function changeOpacity(layerId, opacity) {
+            if (layers[layerId]) {
+                const opacityValue = opacity / 100;
+                if (layers[layerId].setStyle) {
+                    layers[layerId].setStyle({ opacity: opacityValue, fillOpacity: opacityValue });
+                } else {
+                    layers[layerId].eachLayer(layer => {
+                        if (layer.setStyle) {
+                            layer.setStyle({ opacity: opacityValue, fillOpacity: opacityValue });
+                        }
+                    });
+                }
+            }
+        }
+
+        function togglePanel() {
+            const panel = document.getElementById('controlPanel');
+            const toggle = document.getElementById('panelToggle');
+            const icon = toggle.querySelector('i');
+            
+            if (panel.classList.contains('collapsed')) {
+                panel.classList.remove('collapsed');
+                icon.className = 'fas fa-chevron-left';
+            } else {
+                panel.classList.add('collapsed');
+                icon.className = 'fas fa-chevron-right';
+            }
+        }
+
+        function zoomToIreland() {
+            map.setView([53.4, -7.9], 8);
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        function toggleMeasurement() {
+            // Placeholder for measurement tool
+            measurementMode = !measurementMode;
+            console.log('Measurement mode:', measurementMode ? 'ON' : 'OFF');
+            // TODO: Implement measurement functionality
+        }
+
+        function exportData() {
+            // Placeholder for export functionality
+            console.log('Export current view data');
+            alert('Export functionality will be implemented in future versions');
+        }
+
+        function updateScale() {
+            const zoom = map.getZoom();
+            const scale = Math.round(591657527.591555 / Math.pow(2, zoom));
+            document.getElementById('mapScale').textContent = `1:${scale.toLocaleString()}`;
+        }
+
+        // Mobile responsiveness
+        function toggleMobilePanel() {
+            if (window.innerWidth <= 768) {
+                const panel = document.getElementById('controlPanel');
+                panel.classList.toggle('mobile-open');
+            }
+        }
+
+        // Update panel toggle for mobile
+        document.getElementById('panelToggle').addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+                toggleMobilePanel();
+            } else {
+                togglePanel();
+            }
+        });
+
+        // Close mobile panel when clicking map
+        map.on('click', function() {
+            if (window.innerWidth <= 768) {
+                const panel = document.getElementById('controlPanel');
+                panel.classList.remove('mobile-open');
+            }
+        });
+
+        // Initialize scale
+        updateScale();
+
+        // Welcome message
+        setTimeout(() => {
+            const welcomePopup = L.popup()
+                .setLatLng([53.4, -7.9])
+                .setContent(`
+                    <div class="popup-content">
+                        <div class="popup-title">Welcome to ICONEEx Data Dashboard</div>
+                        <div class="popup-info">
+                            Explore Ireland's CO₂ monitoring network and satellite-driven NEE data.<br>
+                            <strong>Features:</strong><br>
+                            • Interactive flux tower locations<br>
+                            • Multiple base map layers<br>
+                            • Real-time data visualization<br>
+                            • Analysis tools coming soon
+                        </div>
+                    </div>
+                `)
+                .openOn(map);
+                
+            // Auto-close after 8 seconds
+            setTimeout(() => {
+                map.closePopup(welcomePopup);
+            }, 8000);
+        }, 1000);
+
+    </script>
+</body>
+</html>
