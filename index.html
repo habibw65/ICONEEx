@@ -32,6 +32,8 @@
                     <li><a href="team.html">The Team</a></li>
                     <li><a href="tgem.html">T-GEM</a></li>
                     <li><a href="contact.html">Contact</a></li>
+                    <li><a href="app.html" style="background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-light)); color: white; border-radius: var(--radius-lg); padding: 10px 16px;"><i class="fas fa-map"></i> App</a></li>
+                    <li><button class="search-toggle" id="searchToggle" aria-label="Search"><i class="fas fa-search"></i></button></li>
                 </ul>
             </nav>
             <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle mobile menu">
@@ -42,9 +44,44 @@
         </div>
     </header>
 
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-overlay-content">
+            <div class="search-header">
+                <h2>Search ICONEEx</h2>
+                <button class="search-close" id="searchClose" aria-label="Close search">&times;</button>
+            </div>
+            <div class="search-form">
+                <input type="text" id="searchInput" placeholder="Search for news, team members, research..." aria-label="Search">
+                <button type="button" class="search-btn" id="searchBtn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            <div class="search-results" id="searchResults">
+                <p class="search-help">Start typing to search through ICONEEx content...</p>
+            </div>
+        </div>
+    </div>
+
     <section class="hero" style="background-image: url('images/pic01.jpg');">
         <div class="hero-content">
-            <h1>Satellite-driven model to upscale Irish CO<sub>2</sub> Net Ecosystem Exchange (ICONEEx)</h1>
+            <div class="hero-wave-symbol">
+                <span class="wave-large">(</span>
+                <span class="wave-medium">(</span>
+                <span class="wave-small">(</span>
+                <span class="small-dot">●</span>
+                <span class="wave-small">)</span>
+                <span class="wave-medium">)</span>
+                <span class="wave-large">)</span>
+                
+                <!-- Animated CO₂ source/sink bubbles -->
+                <div class="co2-sources-sinks">
+                    <div class="co2-bubble source co2-1">CO₂</div>
+                    <div class="co2-bubble sink co2-2">CO₂</div>
+                    <div class="co2-bubble source co2-3">CO₂</div>
+                </div>
+            </div>
+            <h1>Satellite-driven model to upscale Irish Net Ecosystem CO<sub>2</sub> Exchange (ICONEEx)</h1>
             <p>A project funded by the EPA, Ireland.</p>
         </div>
     </section>
@@ -210,19 +247,36 @@
             </div>
         </section>
 
-        <!-- Twitter Feed Section -->
-        <section id="twitter-feed" class="page-section">
-            <h2 class="section-title">Follow Us on Twitter</h2>
-            <div class="twitter-content">
-                <div class="twitter-embed-container">
-                    <a class="twitter-timeline" 
-                       data-width="100%" 
-                       data-height="600" 
-                       data-theme="light" 
-                       data-chrome="noheader nofooter noborders transparent" 
-                       href="https://twitter.com/ICONEEx_IRL?ref_src=twsrc%5Etfw">
-                        Tweets by ICONEEx_IRL
-                    </a>
+        <!-- Partners Section -->
+        <section id="partners" class="page-section">
+            <h2 class="section-title">Our Partners</h2>
+            <div class="partners-content">
+                <p class="partners-intro">The ICONEEx team works very closely with the ECFT community, with collaboraters based in leading academic and research institutions across Ireland:</p>
+                <div class="partners-grid">
+                    <div class="partner-logo">
+                        <img src="partners/print-web-trinity.jpg" alt="Trinity College Dublin" title="Trinity College Dublin">
+                    </div>
+                    <div class="partner-logo">
+                        <img src="partners/University_College_Dublin_logo.svg.png" alt="University College Dublin" title="University College Dublin">
+                    </div>
+                    <div class="partner-logo">
+                        <img src="partners/ucc-logo.png" alt="University College Cork" title="University College Cork">
+                    </div>
+                    <div class="partner-logo">
+                        <img src="partners/university_limrick.png" alt="University of Limerick" title="University of Limerick">
+                    </div>
+                    <div class="partner-logo">
+                        <img src="partners/teagasc-vector-logo.png" alt="Teagasc" title="Teagasc">
+                    </div>
+                    <div class="partner-logo">
+                        <img src="partners/bord-na-mona.png" alt="Bord na Móna" title="Bord na Móna">
+                    </div>
+                    <div class="partner-logo">
+                        <img src="partners/npws.png" alt="National Parks and Wildlife Service" title="National Parks and Wildlife Service">
+                    </div>
+                    <div class="partner-logo">
+                        <img src="partners/earthy-matters.webp" alt="Earthy Matters" title="Earthy Matters">
+                    </div>
                 </div>
             </div>
         </section>
@@ -386,6 +440,169 @@
 
             return t;
         }(document, "script", "twitter-wjs"));
+    </script>
+
+    <!-- Search Functionality JavaScript -->
+    <script>
+    // Search Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchToggle = document.querySelector('.search-toggle');
+        const searchOverlay = document.querySelector('.search-overlay');
+        const searchClose = document.querySelector('.search-close');
+        const searchInput = document.querySelector('.search-overlay input');
+        const searchBtn = document.querySelector('.search-btn');
+        const searchResults = document.querySelector('.search-results');
+
+        // Sample searchable content
+        const searchableContent = [
+            {
+                title: 'ICONEEx Overview',
+                content: 'Satellite-driven model to upscale Irish Net Ecosystem CO2 Exchange. Our research focuses on understanding carbon dynamics across Irish landscapes.',
+                type: 'Research',
+                url: '#intro'
+            },
+            {
+                title: 'Our Team',
+                content: 'Meet the researchers and scientists working on the ICONEEx project. Our multidisciplinary team brings together experts from various institutions.',
+                type: 'Team',
+                url: '#team'
+            },
+            {
+                title: 'Latest News',
+                content: 'Stay updated with our latest research findings, publications, and project developments.',
+                type: 'News',
+                url: '#news'
+            },
+            {
+                title: 'Research Partners',
+                content: 'Trinity College Dublin, Teagasc, University College Dublin, and other leading research institutions collaborating on ICONEEx.',
+                type: 'Partners',
+                url: '#partners'
+            },
+            {
+                title: 'CO2 Exchange Monitoring',
+                content: 'Advanced satellite monitoring and ground-based measurements to track carbon dioxide exchange in Irish ecosystems.',
+                type: 'Research',
+                url: '#intro'
+            },
+            {
+                title: 'Contact Information',
+                content: 'Get in touch with the ICONEEx team for collaborations, questions, or more information about our research.',
+                type: 'Contact',
+                url: 'contact.html'
+            }
+        ];
+
+        // Open search overlay
+        searchToggle.addEventListener('click', function() {
+            searchOverlay.classList.add('active');
+            searchInput.focus();
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        });
+
+        // Close search overlay
+        function closeSearch() {
+            searchOverlay.classList.remove('active');
+            searchInput.value = '';
+            searchResults.innerHTML = '<p class="search-help">Type in the search box above to find content...</p>';
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        searchClose.addEventListener('click', closeSearch);
+
+        // Close on overlay click (but not on content click)
+        searchOverlay.addEventListener('click', function(e) {
+            if (e.target === searchOverlay) {
+                closeSearch();
+            }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && searchOverlay.classList.contains('active')) {
+                closeSearch();
+            }
+        });
+
+        // Search functionality
+        function performSearch(query) {
+            if (!query || query.trim().length === 0) {
+                searchResults.innerHTML = '<p class="search-help">Type in the search box above to find content...</p>';
+                return;
+            }
+
+            query = query.toLowerCase().trim();
+            const results = searchableContent.filter(item => 
+                item.title.toLowerCase().includes(query) || 
+                item.content.toLowerCase().includes(query)
+            );
+
+            if (results.length === 0) {
+                searchResults.innerHTML = `
+                    <div class="no-results">
+                        <p style="text-align: center; color: var(--text-muted); margin: 40px 0;">
+                            No results found for "${query}". Try different keywords or check spelling.
+                        </p>
+                    </div>
+                `;
+            } else {
+                const resultsHtml = results.map(item => {
+                    // Highlight matching text in title and content
+                    const highlightedTitle = highlightText(item.title, query);
+                    const highlightedContent = highlightText(item.content.substring(0, 150) + '...', query);
+                    
+                    return `
+                        <div class="search-result-item" onclick="navigateToResult('${item.url}')">
+                            <div class="search-result-title">${highlightedTitle}</div>
+                            <div class="search-result-excerpt">${highlightedContent}</div>
+                            <div class="search-result-type">${item.type}</div>
+                        </div>
+                    `;
+                }).join('');
+                
+                searchResults.innerHTML = resultsHtml;
+            }
+        }
+
+        // Highlight matching text
+        function highlightText(text, query) {
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<mark style="background: #fff3cd; color: #856404; padding: 1px 2px; border-radius: 3px;">$1</mark>');
+        }
+
+        // Navigate to search result
+        window.navigateToResult = function(url) {
+            closeSearch();
+            if (url.startsWith('#')) {
+                // Scroll to section
+                const element = document.querySelector(url);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+            } else {
+                // Navigate to page
+                window.location.href = url;
+            }
+        };
+
+        // Search on input change (real-time search)
+        searchInput.addEventListener('input', function() {
+            performSearch(this.value);
+        });
+
+        // Search on button click
+        searchBtn.addEventListener('click', function() {
+            performSearch(searchInput.value);
+        });
+
+        // Search on Enter key
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                performSearch(this.value);
+            }
+        });
+    });
     </script>
 
 </body>
