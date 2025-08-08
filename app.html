@@ -473,52 +473,6 @@
                     <h3><i class="fas fa-layer-group"></i> Layer Control</h3>
                 </div>
                 <div class="control-content">
-                    <!-- Base Maps Section -->
-                    <div class="control-section">
-                        <div class="section-header" onclick="toggleSection('basemaps')">
-                            <h4><i class="fas fa-map"></i> Base Maps</h4>
-                            <span class="section-toggle">▼</span>
-                        </div>
-                        <div class="section-content active" id="basemaps">
-                            <div class="layer-item">
-                                <div class="layer-info">
-                                    <div class="layer-name">OpenStreetMap</div>
-                                    <div class="layer-desc">Default street map</div>
-                                </div>
-                                <div class="layer-controls">
-                                    <div class="toggle-switch active" onclick="switchBasemap('osm')" data-basemap="osm"></div>
-                                </div>
-                            </div>
-                            <div class="layer-item">
-                                <div class="layer-info">
-                                    <div class="layer-name">Satellite</div>
-                                    <div class="layer-desc">ESRI World Imagery</div>
-                                </div>
-                                <div class="layer-controls">
-                                    <div class="toggle-switch" onclick="switchBasemap('satellite')" data-basemap="satellite"></div>
-                                </div>
-                            </div>
-                            <div class="layer-item">
-                                <div class="layer-info">
-                                    <div class="layer-name">Terrain</div>
-                                    <div class="layer-desc">Topographic map</div>
-                                </div>
-                                <div class="layer-controls">
-                                    <div class="toggle-switch" onclick="switchBasemap('terrain')" data-basemap="terrain"></div>
-                                </div>
-                            </div>
-                            <div class="layer-item">
-                                <div class="layer-info">
-                                    <div class="layer-name">Dark</div>
-                                    <div class="layer-desc">Dark theme map</div>
-                                </div>
-                                <div class="layer-controls">
-                                    <div class="toggle-switch" onclick="switchBasemap('dark')" data-basemap="dark"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Data Layers Section -->
                     <div class="control-section">
                         <div class="section-header" onclick="toggleSection('datalayers')">
@@ -586,6 +540,52 @@
                                     <button class="map-tool-btn" onclick="exportData()">
                                         <i class="fas fa-download"></i>
                                     </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Base Maps Section -->
+                    <div class="control-section">
+                        <div class="section-header" onclick="toggleSection('basemaps')">
+                            <h4><i class="fas fa-map"></i> Base Maps</h4>
+                            <span class="section-toggle">▼</span>
+                        </div>
+                        <div class="section-content active" id="basemaps">
+                            <div class="layer-item">
+                                <div class="layer-info">
+                                    <div class="layer-name">OpenStreetMap</div>
+                                    <div class="layer-desc">Default street map</div>
+                                </div>
+                                <div class="layer-controls">
+                                    <div class="toggle-switch active" onclick="switchBasemap('osm')" data-basemap="osm"></div>
+                                </div>
+                            </div>
+                            <div class="layer-item">
+                                <div class="layer-info">
+                                    <div class="layer-name">Satellite</div>
+                                    <div class="layer-desc">ESRI World Imagery</div>
+                                </div>
+                                <div class="layer-controls">
+                                    <div class="toggle-switch" onclick="switchBasemap('satellite')" data-basemap="satellite"></div>
+                                </div>
+                            </div>
+                            <div class="layer-item">
+                                <div class="layer-info">
+                                    <div class="layer-name">Terrain</div>
+                                    <div class="layer-desc">Topographic map</div>
+                                </div>
+                                <div class="layer-controls">
+                                    <div class="toggle-switch" onclick="switchBasemap('terrain')" data-basemap="terrain"></div>
+                                </div>
+                            </div>
+                            <div class="layer-item">
+                                <div class="layer-info">
+                                    <div class="layer-name">Dark</div>
+                                    <div class="layer-desc">Dark theme map</div>
+                                </div>
+                                <div class="layer-controls">
+                                    <div class="toggle-switch" onclick="switchBasemap('dark')" data-basemap="dark"></div>
                                 </div>
                             </div>
                         </div>
