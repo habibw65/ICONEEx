@@ -167,12 +167,13 @@ main.container {
 }
 
 .work-text {
-    flex: 2;
+    flex: 1;
     padding-right: 30px;
+    max-width: 60%; /* Limit text width to give more space to image */
 }
 
 .work-image {
-    flex: 1;
+    flex: 1.5; /* Make image larger */
 }
 
 .work-image img {
