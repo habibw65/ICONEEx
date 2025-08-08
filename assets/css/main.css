@@ -327,11 +327,11 @@ main.container {
 }
 
 .news-item-img {
-    width: 150px; /* Increased width */
-    height: 150px; /* Increased height */
+    width: 260px; /* Even larger width */
+    height: 260px; /* Even larger height */
     object-fit: cover;
     border-radius: 4px;
-    margin-right: 20px; /* Increased margin */
+    margin-right: 35px; /* Adjusted margin */
     flex-shrink: 0;
 }
 
