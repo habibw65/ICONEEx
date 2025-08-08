@@ -204,6 +204,7 @@ main.container {
     margin-bottom: 10px;
     display: flex;
     align-items: center;
+    flex-wrap: wrap; /* Allow items to wrap */
 }
 
 .news-preview-img {
@@ -218,10 +219,19 @@ main.container {
     text-decoration: none;
     color: #333;
     font-weight: 500;
+    flex-grow: 1; /* Allow link to take available space */
 }
 
 .news-list-preview a:hover {
     color: #0056b3;
+}
+
+.news-date-preview {
+    font-size: 0.75em;
+    color: #6c757d;
+    margin-left: auto; /* Push date to the right */
+    padding-left: 10px; /* Space between link and date */
+    white-space: nowrap; /* Prevent date from wrapping */
 }
 
 .read-more {
